@@ -1,7 +1,8 @@
-package blogsite.controller;
+package blogsite.blogs.controller;
 
-import blogsite.entity.Blog;
-import blogsite.repository.BlogRepository;
+
+import blogsite.blogs.entity.Blog;
+import blogsite.blogs.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/blogs/")
 public class BlogController {
 
+    private final BlogRepository blogRepository;
+
     @Autowired
-    private BlogRepository blogRepository;
+    BlogController(BlogRepository blogRepository){
+        this.blogRepository = blogRepository;
+    }
 
     //show form to add a new blog
     //using add-blog.html

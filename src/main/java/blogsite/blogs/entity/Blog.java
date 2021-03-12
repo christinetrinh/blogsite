@@ -1,4 +1,4 @@
-package blogsite.entity;
+package blogsite.blogs.entity;
 
 import javax.persistence.*;
 
