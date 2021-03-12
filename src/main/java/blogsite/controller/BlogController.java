@@ -17,17 +17,22 @@ public class BlogController {
     @Autowired
     private BlogRepository blogRepository;
 
+    //show form to add a new blog
+    //using add-blog.html
     @GetMapping("showForm")
     public String showForm(Blog blog) {
         return "add-blog";
     }
 
+    //show the list of blogs
+    //using index.html
     @GetMapping("list")
     public String blogs(Model model) {
         model.addAttribute("blogs", this.blogRepository.findAll());
         return "index";
     }
 
+    //adds the new blog
     @PostMapping("add")
     public String addBlog(@Valid Blog blog, BindingResult result, Model model) {
         if(result.hasErrors()) {
@@ -38,6 +43,7 @@ public class BlogController {
         return "redirect:list";
     }
 
+    //edit blog screen
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Blog blog = this.blogRepository.findById(id)
@@ -47,6 +53,7 @@ public class BlogController {
         return "update-blog";
     }
 
+    //blog update action
     @PostMapping("update/{id}")
     public String updateBlog(@PathVariable("id") long id, @Valid Blog blog, BindingResult result, Model model) {
         if(result.hasErrors()) {
@@ -62,6 +69,7 @@ public class BlogController {
         return "index";
     }
 
+    //delete blog action
     @GetMapping("delete/{id}")
     public String deleteBlog(@PathVariable("id") long id, Model model) {
         Blog blog = this.blogRepository.findById(id)
