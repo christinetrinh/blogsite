@@ -1,5 +1,8 @@
 package blogsite.blogs.entity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -54,8 +57,10 @@ public class Blog {
 
     @PostRemove
     public void onPostRemove() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        System.out.println("AUDIT -------- Deleted blog: " + title + " at " + timestamp);
+        final Logger LOG =   LoggerFactory.getLogger(Blog.class);
+        LOG.info("Deleted blog: " + title);
+        //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        //System.out.println("AUDIT -------- Deleted blog: " + title + " at " + timestamp);
     }
 
 }
