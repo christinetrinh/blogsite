@@ -1,6 +1,9 @@
 package blogsite.blogs.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.logging.Logger;
 
 @Entity
 @Table(name = "blogs")
@@ -49,4 +52,12 @@ public class Blog {
     public void setContent(String content) {
         this.content = content;
     }
+
+
+    @PostRemove
+    public void onPostRemove() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println("AUDIT: Deleted blog: " + title + " at " + timestamp);
+    }
+
 }
