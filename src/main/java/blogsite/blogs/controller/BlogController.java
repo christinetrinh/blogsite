@@ -3,6 +3,7 @@ package blogsite.blogs.controller;
 
 import blogsite.blogs.entity.Blog;
 import blogsite.blogs.repository.BlogRepository;
+import blogsite.news.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class BlogController {
 
     private final BlogRepository blogRepository;
+    private final NewsRepository newsRepository;
 
     @Autowired
-    BlogController(BlogRepository blogRepository){
+    BlogController(BlogRepository blogRepository, NewsRepository newsRepository){
         this.blogRepository = blogRepository;
+        this.newsRepository = newsRepository;
     }
 
     //show form to add a new blog
@@ -27,6 +30,14 @@ public class BlogController {
     @GetMapping("showForm")
     public String showForm(Blog blog) {
         return "add-blog";
+    }
+
+    //show the list of news articles
+    //using newsIndex.html
+    @GetMapping("newslist")
+    public String articles(Model model) {
+        model.addAttribute("articles", this.newsRepository.findAll());
+        return "news-index";
     }
 
     //show the list of blogs
