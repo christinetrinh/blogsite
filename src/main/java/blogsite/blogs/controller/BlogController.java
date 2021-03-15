@@ -80,10 +80,6 @@ public class BlogController {
         //update blog
         blogRepository.save(blog);
 
-        //get all blogs (with update)
-        //model.addAttribute("blogs", this.blogRepository.findAll());
-        //return "index";
-        //------------------------------------------------------
         //view the updated blog
         Blog updatedBlog = this.blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid blog id : " + id));

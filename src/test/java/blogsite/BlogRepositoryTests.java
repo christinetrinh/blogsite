@@ -40,7 +40,7 @@ public class BlogRepositoryTests {
     }
 
     @Test
-    public void testListProducts() {
+    public void testListBlogs() {
         blogRepository.save(new Blog("blog1", "blogContent"));
         blogRepository.save(new Blog("blog2", "blogContent"));
         List<Blog> blogs = (List<Blog>) blogRepository.findAll();
