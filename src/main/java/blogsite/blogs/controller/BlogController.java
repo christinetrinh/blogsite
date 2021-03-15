@@ -3,6 +3,7 @@ package blogsite.blogs.controller;
 
 import blogsite.blogs.entity.Blog;
 import blogsite.blogs.repository.BlogRepository;
+import blogsite.news.entity.Article;
 import blogsite.news.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,16 @@ public class BlogController {
     public String articles(Model model) {
         model.addAttribute("articles", this.newsRepository.findAll());
         return "news-index";
+    }
+
+    //view article screen
+    @GetMapping("newslist/{id}")
+    public String viewArticle(@PathVariable("id") long id, Model model) {
+        Article newsArticle = this.newsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid news article id : " + id));
+
+        model.addAttribute("article", newsArticle);
+        return "view-article";
     }
 
     //show the list of blogs
@@ -93,6 +104,8 @@ public class BlogController {
         //get all blogs (with update)
         //model.addAttribute("blogs", this.blogRepository.findAll());
         //return "index";
+        //------------------------------------------------------
+        //view the updated blog
         Blog updatedBlog = this.blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid blog id : " + id));
         model.addAttribute("blog", updatedBlog);
