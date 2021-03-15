@@ -61,10 +61,10 @@ public class BlogRepositoryTests {
 
     @Test
     public void testDeleteBlog() {
-        Blog savedBlog = blogRepository.save(new Blog("blogTitle", "blogContent"));
+        Blog savedBlog = blogRepository.save(new Blog("deleteBlogTitle", "blogContent"));
         blogRepository.deleteById(savedBlog.getId());
 
-        Blog deletedBlog = blogRepository.findByTitle("blogTitle");
+        Blog deletedBlog = blogRepository.findByTitle("deleteBlogTitle");
 
         assertThat(deletedBlog).isNull();
 
