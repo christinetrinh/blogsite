@@ -69,6 +69,16 @@ public class BlogController {
         return "update-blog";
     }
 
+    //view blog screen
+    @GetMapping("list/{id}")
+    public String viewBlog(@PathVariable("id") long id, Model model) {
+        Blog blog = this.blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid blog id : " + id));
+
+        model.addAttribute("blog", blog);
+        return "view-blog";
+    }
+
     //blog update action
     @PostMapping("update/{id}")
     public String updateBlog(@PathVariable("id") long id, @Valid Blog blog, BindingResult result, Model model) {
@@ -81,8 +91,12 @@ public class BlogController {
         blogRepository.save(blog);
 
         //get all blogs (with update)
-        model.addAttribute("blogs", this.blogRepository.findAll());
-        return "index";
+        //model.addAttribute("blogs", this.blogRepository.findAll());
+        //return "index";
+        Blog updatedBlog = this.blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid blog id : " + id));
+        model.addAttribute("blog", updatedBlog);
+        return "view-blog";
     }
 
     //delete blog action
