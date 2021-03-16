@@ -71,7 +71,7 @@ public class BlogIntegrationTests {
     }
 
     @Test
-    public void testDeleteEmployee() {
+    public void testDeleteBlog() {
         int id = 2;
         Blog blog = restTemplate.getForObject(getRootUrl() + "/blogs/list/" + id, Blog.class);
         assertNotNull(blog);
